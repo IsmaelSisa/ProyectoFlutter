@@ -2,19 +2,32 @@
 
 Este es un proyecto desarrollado con Flutter, pensado como punto de partida para una aplicación móvil moderna y multiplataforma.
 
+---
+
 ## 🚀 Descripción
 
-Este proyecto Flutter tiene como objetivo servir de base para el desarrollo de una aplicación móvil que puede correr en Android, iOS, Web y escritorio (Windows).
+Este proyecto Flutter tiene como objetivo servir de base para el desarrollo de una aplicación móvil que puede correr en **Android, iOS, Web y escritorio (Windows)**.
 
-Actualmente es un proyecto en fase inicial, ideal para aprender y experimentar con Flutter y Dart.
+Actualmente es un proyecto en fase inicial, **ideal para aprender y experimentar con Flutter, Firebase y arquitectura limpia**.
+
+Incluye:
+- Autenticación con Firebase (correo y contraseña)
+- Navegación con barra inferior personalizada
+- Pantalla de login moderna
+- Módulos separados por pantallas y componentes
+
+---
 
 ## 🛠️ Tecnologías utilizadas
 
-- Flutter
-- Dart
-- Material Design
-- Compatibilidad multiplataforma (Android, iOS, Web, Windows)
-- Recursos estáticos desde `assets/`
+- ✅ Flutter
+- ✅ Dart
+- ✅ Firebase Authentication
+- ✅ Material Design
+- ✅ Compatibilidad multiplataforma (Android, iOS, Web, Windows)
+- ✅ Recursos estáticos desde `assets/`
+
+---
 
 ## 📂 Estructura del proyecto
 
