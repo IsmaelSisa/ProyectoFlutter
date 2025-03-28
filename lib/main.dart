@@ -1,11 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import 'package:sisa/firebase_options.dart';
 import './screens/HomePage.dart';
 import './screens/NosotrosPage.dart';
 import './widgets/CustomBottomNavBar.dart';
 import './screens/Acceso.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
@@ -18,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Acceso(), // Pantalla de login al inicio
+      home: Acceso(), // Verifica si el usuario está logueado
     );
   }
 }

@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final IconData icon;
   final bool obscureText;
   final bool isPassword;
+  final TextEditingController? controller;
 
   const CustomTextField({
     super.key,
@@ -12,25 +13,22 @@ class CustomTextField extends StatelessWidget {
     required this.icon,
     this.obscureText = false,
     this.isPassword = false,
+    this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       obscureText: obscureText,
-      style: const TextStyle(fontSize: 16),
       decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: Colors.black87),
+        prefixIcon: Icon(icon),
         hintText: hintText,
-        hintStyle: const TextStyle(color: Colors.grey),
-        filled: true,
-        fillColor: const Color(0xFFF0F0F0), // Gris muy claro
-        contentPadding:
-        const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(12),
         ),
+        filled: true,
+        fillColor: Colors.grey[200],
       ),
     );
   }
