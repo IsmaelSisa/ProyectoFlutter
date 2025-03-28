@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sisa/screens/acceso.dart'; // Importar la pantalla de acceso
 
 import '../widgets/custom_text_field.dart';
 import '../widgets/custom_button.dart';
-import '../main.dart';
 
 class Registro extends StatefulWidget {
   const Registro({super.key});
@@ -40,11 +40,21 @@ class _RegistroState extends State<Registro> {
         password: _passwordController.text.trim(),
       );
 
-      // Navegar al MainNavigation después de registrarse
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => MainNavigation()),
-      );
+      // Mostrar mensaje y redirigir a login
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Registro exitoso. Inicia sesión.'),
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 2),
+          ),
+        );
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Acceso()),
+        );
+      }
     } on FirebaseAuthException catch (e) {
       setState(() {
         _error = e.message;
@@ -131,7 +141,7 @@ class _RegistroState extends State<Registro> {
                   const Text("¿Ya tienes cuenta? "),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pop(context); // Regresar al login
+                      Navigator.pop(context); // Volver al login
                     },
                     child: const Text(
                       "Inicia sesión",
