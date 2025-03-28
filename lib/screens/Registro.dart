@@ -1,45 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sisa/screens/Registro.dart';
-import 'package:sisa/screens/contrasena.dart';
 
 import '../widgets/custom_text_field.dart';
 import '../widgets/custom_button.dart';
 import '../main.dart';
 
-class Acceso extends StatefulWidget {
-  const Acceso({Key? key}) : super(key: key);
+class Registro extends StatefulWidget {
+  const Registro({super.key});
 
   @override
-  State<Acceso> createState() => _AccesoState();
+  State<Registro> createState() => _RegistroState();
 }
 
-class _AccesoState extends State<Acceso> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+class _RegistroState extends State<Registro> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool _isLoading = false;
-  String? _errorMessage;
+  String? _error;
 
-  Future<void> _handleLogin() async {
+  void _register() async {
+    if (_passwordController.text != _confirmPasswordController.text) {
+      setState(() {
+        _error = 'Las contraseñas no coinciden.';
+      });
+      return;
+    }
+
     setState(() {
       _isLoading = true;
-      _errorMessage = null;
+      _error = null;
     });
 
     try {
-      await _auth.signInWithEmailAndPassword(
+      await _auth.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+
+      // Navegar al MainNavigation después de registrarse
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => MainNavigation()),
+        MaterialPageRoute(builder: (context) => MainNavigation()),
       );
     } on FirebaseAuthException catch (e) {
       setState(() {
-        _errorMessage = e.message;
+        _error = e.message;
       });
     } finally {
       setState(() {
@@ -62,17 +70,16 @@ class _AccesoState extends State<Acceso> {
               Image.asset('assets/LOGO.png', height: 80),
               const SizedBox(height: 20),
               const Text(
-                'Bienvenido de nuevo',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                'Crear cuenta',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 8),
               const Text(
-                'Ingresa para continuar',
+                'Completa el formulario para registrarte',
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
               const SizedBox(height: 40),
 
-              // Email field
               CustomTextField(
                 controller: _emailController,
                 hintText: 'Correo electrónico',
@@ -80,7 +87,6 @@ class _AccesoState extends State<Acceso> {
               ),
               const SizedBox(height: 20),
 
-              // Password field
               CustomTextField(
                 controller: _passwordController,
                 hintText: 'Contraseña',
@@ -88,67 +94,47 @@ class _AccesoState extends State<Acceso> {
                 obscureText: true,
                 isPassword: true,
               ),
+              const SizedBox(height: 20),
+
+              CustomTextField(
+                controller: _confirmPasswordController,
+                hintText: 'Confirmar contraseña',
+                icon: Icons.lock_outline,
+                obscureText: true,
+                isPassword: true,
+              ),
               const SizedBox(height: 10),
 
-              // Error message
-              if (_errorMessage != null)
+              if (_error != null)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Text(
-                    _errorMessage!,
+                    _error!,
                     style: const TextStyle(color: Colors.red),
                   ),
                 ),
 
-              // Remember me & Forgot password
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Checkbox(value: true, onChanged: (_) {}),
-                      const Text('Recordarme'),
-                    ],
-                  ),
-                  TextButton(
-                    onPressed: () {
-
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const Contrasena()),
-                      );
-
-                    },
-                    child: const Text('¿Olvidaste tu contraseña?'),
-                  ),
-                ],
-              ),
               const SizedBox(height: 30),
 
-              // Login button or loading indicator
               _isLoading
                   ? const CircularProgressIndicator()
                   : CustomButton(
-                text: 'Iniciar sesión',
-                onPressed: _handleLogin,
+                text: 'Registrarse',
+                onPressed: _register,
               ),
 
               const SizedBox(height: 25),
 
-              // Registro
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('¿No tienes cuenta? '),
+                  const Text("¿Ya tienes cuenta? "),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => const Registro()),
-                      );
+                      Navigator.pop(context); // Regresar al login
                     },
                     child: const Text(
-                      'Regístrate',
+                      "Inicia sesión",
                       style: TextStyle(
                         color: Colors.black87,
                         fontWeight: FontWeight.bold,
