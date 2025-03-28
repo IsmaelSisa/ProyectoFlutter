@@ -1,16 +1,30 @@
-# sisa
+# 📱 Proyecto Flutter - SisaApp
 
-A new Flutter project.
+Este es un proyecto desarrollado con Flutter, pensado como punto de partida para una aplicación móvil moderna y multiplataforma.
 
-## Getting Started
+## 🚀 Descripción
 
-This project is a starting point for a Flutter application.
+Este proyecto Flutter tiene como objetivo servir de base para el desarrollo de una aplicación móvil que puede correr en Android, iOS, Web y escritorio (Windows).
 
-A few resources to get you started if this is your first Flutter project:
+Actualmente es un proyecto en fase inicial, ideal para aprender y experimentar con Flutter y Dart.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🛠️ Tecnologías utilizadas
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Flutter
+- Dart
+- Material Design
+- Compatibilidad multiplataforma (Android, iOS, Web, Windows)
+- Recursos estáticos desde `assets/`
+
+## 📂 Estructura del proyecto
+
+ProyectoFlutter/ ├── android/ ├── ios/ ├── lib/ ├── web/ ├── windows/ ├── assets/ ├── pubspec.yaml └── README.md
+
+
+## ▶️ Cómo ejecutar el proyecto
+
+1. **Clona el repositorio:**
+
+```bash
+git clone https://github.com/IsmaelSisa/ProyectoFlutter.git
+cd ProyectoFlutter
